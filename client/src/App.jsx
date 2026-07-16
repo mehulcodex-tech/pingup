@@ -9,11 +9,18 @@ import Discover from './pages/Discover.jsx'
 import Profile from './pages/Profile.jsx'
 import CreatePost from './pages/CreatePost.jsx'
 import Layout from './pages/Layout.jsx'
-import { useUser } from '@clerk/clerk-react'
+import { useUser, useAuth } from '@clerk/clerk-react'
 import { Toaster } from 'react-hot-toast'
+import { useEffect } from 'react'
 
 function App() {
-  const {user} = useUser()
+  const {user} = useUser();
+  const {getToken} = useAuth();
+  useEffect(() => {
+    if(user) {
+      getToken().then((token) => console.log(token))
+    }
+  }, [user])
   return (
     <>
     <Toaster/>
